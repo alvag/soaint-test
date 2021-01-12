@@ -65,13 +65,10 @@ export class DataTableComponent implements OnInit {
         } );
 
         ref.afterClosed().subscribe( result => {
-            console.log( result );
-
             if ( result ) {
                 if ( result.id !== null ) {
                     const i = this.items.findIndex( x => x.id === result.id );
                     this.items[ i ] = { ...result };
-                    console.log( i );
                 } else {
                     this.items.unshift( { ...result, id: this.items.length } );
                 }
