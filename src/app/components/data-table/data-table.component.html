@@ -1,0 +1,53 @@
+<mat-card class="mat-elevation-z5">
+    <mat-card-header class="py-3 mat-elevation-z3 d-flex justify-content-between align-items-center">
+        <mat-card-title class="mb-0">
+            Listado de Items
+        </mat-card-title>
+
+        <button color="primary" mat-button (click)="itemModal()">
+            <mat-icon>add</mat-icon>
+            Registrar
+        </button>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div class="mat-elevation-z8">
+            <table *ngIf="items" class="w-100" mat-table [dataSource]="sliceArray()">
+                <ng-container matColumnDef="_about">
+                    <th mat-header-cell *matHeaderCellDef> About</th>
+                    <td mat-cell *matCellDef="let element"> {{element._about}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="accessURL">
+                    <th mat-header-cell *matHeaderCellDef> AccessURL</th>
+                    <td mat-cell *matCellDef="let element"> {{element.accessURL}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef> title</th>
+                    <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element" class="text-center" width="150">
+                        <button mat-icon-button color="warn" title="Eliminar" (click)="delete(element.id)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                        <button color="primary" mat-icon-button title="Editar" (click)="itemModal(element)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="columns"></tr>
+                <tr mat-row *matRowDef="let row; columns: columns"></tr>
+            </table>
+
+            <mat-paginator (page)="pageEvt($event)" [length]="total" [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons></mat-paginator>
+
+        </div>
+    </mat-card-content>
+</mat-card>
+
+
